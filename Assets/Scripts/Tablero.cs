@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Tablero : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [HideInInspector]
+    public int[,] casillas;
+
+    private void Start()
     {
-        
+        casillas = new int[3, 8];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

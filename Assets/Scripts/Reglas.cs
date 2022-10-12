@@ -6,6 +6,7 @@ public class Reglas : MonoBehaviour
 {
     public float altura;
     public GameObject piezaBlanca, piezaNegra, piezaReferencia;
+    public Tablero tablero;
 
     private bool turno; // true = blanco, false = negro
     private GameObject nuevaPieza;
@@ -31,23 +32,39 @@ public class Reglas : MonoBehaviour
         {
             if (hitInfo.collider.gameObject != null)
             {
-                Debug.Log(hitInfo.collider.gameObject.name);
-                Vector3 posicion = hitInfo.collider.gameObject.transform.parent.position;
-                posicion = new Vector3(posicion.x, altura, posicion.z);
-                if (turno)
+                Debug.Log(hitInfo.collider.gameObject.transform.parent.name);
+                int[] casilla = obtenerIndiceCasilla(hitInfo.collider.gameObject.transform.parent.name);
+                if (tablero.casillas[casilla[0], casilla[1]] == 0)
                 {
-                    nuevaPieza = Instantiate(piezaBlanca, posicion, Quaternion.identity);
-                    nuevaPieza.transform.parent = piezaReferencia.transform;
-                    nuevaPieza.transform.position = posicion;
+                    Vector3 posicion = hitInfo.collider.gameObject.transform.parent.position;
+                    posicion = new Vector3(posicion.x, altura, posicion.z);
+                    if (turno)
+                    {
+                        tablero.casillas[casilla[0], casilla[1]] = 1;
+                        nuevaPieza = Instantiate(piezaBlanca, posicion, Quaternion.identity);
+                        nuevaPieza.transform.parent = piezaReferencia.transform;
+                        nuevaPieza.transform.position = posicion;
+                    }
+                    else
+                    {
+                        tablero.casillas[casilla[0], casilla[1]] = 2;
+                        nuevaPieza = Instantiate(piezaNegra, posicion, Quaternion.identity);
+                        nuevaPieza.transform.parent = piezaReferencia.transform;
+                        nuevaPieza.transform.position = posicion;
+                    }
+                    turno = !turno;
                 }
-                else
-                {
-                    nuevaPieza = Instantiate(piezaNegra, posicion, Quaternion.identity);
-                    nuevaPieza.transform.parent = piezaReferencia.transform;
-                    nuevaPieza.transform.position = posicion;
-                }
-                turno = !turno;
             }
         }
+    }
+
+    private int[] obtenerIndiceCasilla(string name)
+    {
+        int cas = int.Parse(name[1].ToString());
+        if (name[0] == 'E')
+            return new int[] { 0, cas};
+        if (name[0] == 'M')
+            return new int[] { 1, cas};
+        return new int[] { 2, cas};
     }
 }
