@@ -27,8 +27,9 @@ public class Reglas : MonoBehaviour
             {
                 if (hitInfo.collider.gameObject != null)
                 {
-                    posicion = hitInfo.collider.gameObject.transform.position;
-                    posicion = new Vector3(posicion.x, posicion.y + altura, posicion.z);
+                    Debug.Log(hitInfo.collider.gameObject.name);
+                    posicion = hitInfo.collider.gameObject.transform.parent.position;
+                    posicion = new Vector3(posicion.x, altura, posicion.z);
                     if (turno)
                     {
                         nuevaPieza = Instantiate(piezaBlanca, posicion, Quaternion.identity);
