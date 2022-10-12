@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tablero : MonoBehaviour
+public class Tablero : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
