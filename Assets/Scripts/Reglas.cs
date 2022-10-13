@@ -40,16 +40,18 @@ public class Reglas : MonoBehaviour
                 {
                     Vector3 posicion = hitInfo.collider.gameObject.transform.parent.position;
                     posicion = new Vector3(posicion.x, altura, posicion.z);
-                    if (turno)
+                    if (turno && tablero.numPiezasBlancas < 9)
                     {
                         tablero.casillas[casilla[0], casilla[1]] = 1;
+                        tablero.numPiezasBlancas++;
                         nuevaPieza = Instantiate(piezaBlanca, posicion, Quaternion.identity);
                         nuevaPieza.transform.parent = piezaReferencia.transform;
 
                     }
-                    else
+                    else if (!turno && tablero.numPiezasNegras < 9)
                     {
                         tablero.casillas[casilla[0], casilla[1]] = 2;
+                        tablero.numPiezasNegras++;
                         nuevaPieza = Instantiate(piezaNegra, posicion, Quaternion.identity);
                         nuevaPieza.transform.parent = piezaReferencia.transform;
 
@@ -84,6 +86,7 @@ public class Reglas : MonoBehaviour
             for (int j = 0; j < 8; j++)
                 tablero.casillas[i, j] = 0;
 
+        tablero.numPiezasBlancas = tablero.numPiezasNegras = 0;
         turno = true;
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1300,7 +1300,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7169812, g: 0.69102937, b: 0.5302955, a: 0}
+  m_BackGroundColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5037,6 +5037,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9969d420f268d47b7f1bb077e6be7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numPiezasBlancas: 0
+  numPiezasNegras: 0
 --- !u!1001 &1833943043
 PrefabInstance:
   m_ObjectHideFlags: 0
