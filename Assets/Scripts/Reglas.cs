@@ -7,9 +7,11 @@ public class Reglas : MonoBehaviour
     public float altura;
     public GameObject piezaBlanca, piezaNegra, piezaReferencia;
     public Tablero tablero;
+    public GameObject sonidoCasillaOcupada;
 
     private bool turno; // true = blanco, false = negro
     private GameObject nuevaPieza;
+
 
     private void Start()
     {
@@ -43,16 +45,19 @@ public class Reglas : MonoBehaviour
                         tablero.casillas[casilla[0], casilla[1]] = 1;
                         nuevaPieza = Instantiate(piezaBlanca, posicion, Quaternion.identity);
                         nuevaPieza.transform.parent = piezaReferencia.transform;
-                        nuevaPieza.transform.position = posicion;
+
                     }
                     else
                     {
                         tablero.casillas[casilla[0], casilla[1]] = 2;
                         nuevaPieza = Instantiate(piezaNegra, posicion, Quaternion.identity);
                         nuevaPieza.transform.parent = piezaReferencia.transform;
-                        nuevaPieza.transform.position = posicion;
+
                     }
                     turno = !turno;
+                }
+                else {
+                    Instantiate(sonidoCasillaOcupada);
                 }
             }
         }
