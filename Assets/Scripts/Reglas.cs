@@ -67,4 +67,18 @@ public class Reglas : MonoBehaviour
             return new int[] { 1, cas};
         return new int[] { 2, cas};
     }
+
+    public void reiniciarTablero()
+    {
+        foreach (Transform child in piezaReferencia.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 8; j++)
+                tablero.casillas[i, j] = 0;
+
+        turno = true;
+    }
 }
