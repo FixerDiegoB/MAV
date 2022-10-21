@@ -7,11 +7,10 @@ public class Reglas : MonoBehaviour
     public float altura;
     public GameObject piezaBlanca, piezaNegra, piezaReferencia;
     public Tablero tablero;
-    public GameObject sonidoCasillaOcupada;
+    public GameObject sonidoCasillaOcupada; 
 
     private bool turno; // true = blanco, false = negro
     private GameObject nuevaPieza;
-
 
     private void Start()
     {
@@ -62,7 +61,7 @@ public class Reglas : MonoBehaviour
                     Instantiate(sonidoCasillaOcupada);
                 }
             }
-        }
+        }   
     }
 
     private int[] obtenerIndiceCasilla(string name)

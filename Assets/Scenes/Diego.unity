@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 111316640}
   - component: {fileID: 111316639}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ReiniciarTablero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1503,7 +1503,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-17364
+  m_Name: pb_Mesh-1366
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3613,6 +3613,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: E3
       objectReference: {fileID: 0}
+    - target: {fileID: 659976366147312751, guid: 4a190aa226711ee479e5e9dbb9fcac83, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3492217101535690915, guid: 4a190aa226711ee479e5e9dbb9fcac83, type: 3}
       propertyPath: m_Name
       value: E3_Collider
@@ -5224,7 +5228,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-17362
+  m_Name: pb_Mesh-1906
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
