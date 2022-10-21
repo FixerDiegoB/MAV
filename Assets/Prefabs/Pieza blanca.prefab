@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3036898333416191178}
   - component: {fileID: 3036898333416191173}
   - component: {fileID: 3036898333416191172}
+  - component: {fileID: 6627080073565954826}
   m_Layer: 0
   m_Name: Pieza blanca
   m_TagString: Untagged
@@ -98,3 +99,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &6627080073565954826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036898333416191175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d45f225390cc1d43a6620af0a5cafbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

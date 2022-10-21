@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reglas : MonoBehaviour
+public class Rules : MonoBehaviour
 {
     public float altura;
     public GameObject piezaBlanca, piezaNegra, piezaReferencia;
-    public Tablero tablero;
+    public Board tablero;
     public GameObject sonidoCasillaOcupada; 
 
     private bool turno; // true = blanco, false = negro
@@ -16,7 +16,7 @@ public class Reglas : MonoBehaviour
     {
         turno = true;
     }
-
+    /*
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -87,5 +87,5 @@ public class Reglas : MonoBehaviour
 
         tablero.numPiezasBlancas = tablero.numPiezasNegras = 0;
         turno = true;
-    }
+    }*/
 }

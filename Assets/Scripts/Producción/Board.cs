@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum EstadoCasilla { EMPTY, WHITE, BLACK};
-
-public class Tablero : MonoBehaviour
+public class Board : MonoBehaviour
 {
+    public List<Cell> casillas;
     [HideInInspector]
-    public int[,] casillas;
+    public List<Token> fichasBlancas, fichasNegras;
     [HideInInspector]
     public int numPiezasBlancas, numPiezasNegras;
 
@@ -17,7 +16,6 @@ public class Tablero : MonoBehaviour
 
     private void Start()
     {
-        casillas = new int[3, 8]; // 0: vacio, 1: blancas, 2: negras
         numPiezasBlancas = numPiezasNegras = 0;
     }
 
