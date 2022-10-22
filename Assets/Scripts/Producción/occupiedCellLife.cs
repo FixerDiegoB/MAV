@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class casillaOcupadaVida : MonoBehaviour
+public class occupiedCellLife : MonoBehaviour
 {
     public float duracion;
     // Start is called before the first frame update
