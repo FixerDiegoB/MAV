@@ -26,12 +26,13 @@ public class Rules : MonoBehaviour
             selectedCell = getCellOnClick();
             if (selectedCell != null)
             {
-                Debug.Log(selectedCell.transform.parent.name);
                 if (phase == GamePhase.PUT)
                 {
                     putToken(selectedCell.transform.parent.gameObject);
                 }
             }
+
+            updatePhase();
         }
     }
 
@@ -43,10 +44,17 @@ public class Rules : MonoBehaviour
         return null;
     }
 
+    private void updatePhase()
+    {
+        if (board.totalTokens == 18)
+        {
+            phase = GamePhase.MOVE;
+        }
+    }
+
     private void putToken(GameObject selectedCell)
     {
         Cell cell = selectedCell.GetComponent<Cell>();
-        Debug.Log(cell.status);
         if (cell.status == Status.EMPTY)
         {
             Vector3 position = selectedCell.transform.position;
@@ -54,7 +62,6 @@ public class Rules : MonoBehaviour
             if (turn == Status.WHITE)
             {
                 cell.status = Status.WHITE;
-                board.totalWhiteToken++;
                 newToken = Instantiate(whiteToken, position, Quaternion.identity);
                 newToken.transform.parent = referenceToken.transform;
                 Token token = newToken.GetComponent<Token>();
@@ -65,7 +72,6 @@ public class Rules : MonoBehaviour
             else if (turn == Status.BLACK)
             {
                 cell.status = Status.BLACK;
-                board.totalBlackToken++;
                 newToken = Instantiate(blackToken, position, Quaternion.identity);
                 newToken.transform.parent = referenceToken.transform;
                 Token token = newToken.GetComponent<Token>();
@@ -73,13 +79,15 @@ public class Rules : MonoBehaviour
                 token.color = Status.BLACK;
                 turn = Status.WHITE;
             }
+            board.totalTokens++;
         }
         else
         {
             Instantiate(occupiedCellSound);
         }
     }
-    public void reiniciarTablero()
+
+    public void restartBoard()
     {
         foreach (Transform child in referenceToken.transform)
         {
@@ -91,7 +99,7 @@ public class Rules : MonoBehaviour
             cell.status = Status.EMPTY;
         }
 
-        board.totalWhiteToken = board.totalBlackToken = 0;
+        board.totalTokens = 0;
         turn = Status.WHITE;
     }
 }
