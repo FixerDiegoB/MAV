@@ -10,8 +10,10 @@ public class Cell : MonoBehaviour
     private List<Cell> neighbors;
     [SerializeField]
     private List<Mill> mills;
-    private Status status;
-    private Vector3 position;
+    [HideInInspector]
+    public Status status;
+    [HideInInspector]
+    public Vector3 position;
 
     private void Start()
     {
