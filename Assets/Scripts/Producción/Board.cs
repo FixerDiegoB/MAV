@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Status { EMPTY, WHITE, BLACK };
+public enum GamePhase { PUT, MOVE};
 
 public class Board : MonoBehaviour
 {
-    public List<Cell> casillas;
-    // public List<Mill> mills;
+    public List<Cell> cells;
+    public List<Mill> mills;
     [HideInInspector]
-    public List<Token> fichasBlancas, fichasNegras;
+    public List<Token> whiteTokens, blackTokens;
     [HideInInspector]
-    public int numPiezasBlancas, numPiezasNegras;
+    public int totalWhiteToken, totalBlackToken;
 
     
     
@@ -19,7 +20,7 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        numPiezasBlancas = numPiezasNegras = 0;
+        totalWhiteToken = totalBlackToken = 0;
     }
 
 }

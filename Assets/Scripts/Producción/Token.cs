@@ -7,8 +7,10 @@ using UnityEngine;
 public class Token : MonoBehaviour
 {
     private bool formaMolino;
-    private Cell casilla;
-    private Status color;
+    [HideInInspector]
+    public Cell cell;
+    [HideInInspector]
+    public Status color;
 
 
 }

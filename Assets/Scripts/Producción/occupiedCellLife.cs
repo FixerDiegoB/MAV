@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class occupiedCellLife : MonoBehaviour
 {
-    public float duracion;
+    public float duration;
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject,duracion);
+        Destroy(gameObject, duration);
     }
 
     // Update is called once per frame
