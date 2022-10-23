@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField]
-    private List<Cell> neighbors;
-    [SerializeField]
-    private List<Mill> mills;
+    public List<Cell> neighbors;
+    public List<Mill> mills;
     [HideInInspector]
     public Status status;
     [HideInInspector]
     public Vector3 position;
+    [HideInInspector]
+    public Token token;
+
 
     private void Start()
     {
