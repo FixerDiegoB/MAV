@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class quitarficha : MonoBehaviour
+public class movimiento : MonoBehaviour
 {
+    private Animator a;
+    public float mov;
     // Start is called before the first frame update
     void Start()
     {
-        
+        a = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void OnMouseDown() {
-        Destroy(gameObject);
+        if (Input.GetMouseButtonDown(0))
+        {
+            a.Play("movimiento");
+        }
     }
 }
