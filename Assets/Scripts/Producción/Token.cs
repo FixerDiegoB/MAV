@@ -12,5 +12,9 @@ public class Token : MonoBehaviour
     [HideInInspector]
     public Status color;
 
+    private void OnMouseDown()
+    {
+        Debug.Log("adios");
+    }
 
 }

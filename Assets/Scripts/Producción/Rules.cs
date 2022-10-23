@@ -40,7 +40,9 @@ public class Rules : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
             return hitInfo.collider.gameObject;
+        }
         return null;
     }
 
