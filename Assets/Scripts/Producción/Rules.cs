@@ -4,88 +4,104 @@ using UnityEngine;
 
 public class Rules : MonoBehaviour
 {
-    public float altura;
-    public GameObject piezaBlanca, piezaNegra, piezaReferencia;
-    public Board tablero;
-    public GameObject sonidoCasillaOcupada; 
+    public float height;
+    public GameObject whiteToken, blackToken, referenceToken;
+    public Board board;
+    public GameObject occupiedCellSound; 
 
-    private bool turno; // true = blanco, false = negro
-    private GameObject nuevaPieza;
+    private Status turn;
+    private GamePhase phase;
+    private GameObject selectedCell, newToken;
 
     private void Start()
     {
-        turno = true;
+        turn = Status.WHITE;
+        phase = GamePhase.PUT;
     }
-    /*
+    
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            ColocarPieza();
-        }
-    }
-
-    private void ColocarPieza()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
-        {
-            if (hitInfo.collider.gameObject != null)
+            selectedCell = getCellOnClick();
+            if (selectedCell != null)
             {
-                Debug.Log(hitInfo.collider.gameObject.transform.parent.name);
-                int[] casilla = obtenerIndiceCasilla(hitInfo.collider.gameObject.transform.parent.name);
-                if (tablero.casillas[casilla[0], casilla[1]] == 0)
+                if (phase == GamePhase.PUT)
                 {
-                    Vector3 posicion = hitInfo.collider.gameObject.transform.parent.position;
-                    posicion = new Vector3(posicion.x, altura, posicion.z);
-                    if (turno && tablero.numPiezasBlancas < 9)
-                    {
-                        tablero.casillas[casilla[0], casilla[1]] = 1;
-                        tablero.numPiezasBlancas++;
-                        nuevaPieza = Instantiate(piezaBlanca, posicion, Quaternion.identity);
-                        nuevaPieza.transform.parent = piezaReferencia.transform;
-
-                    }
-                    else if (!turno && tablero.numPiezasNegras < 9)
-                    {
-                        tablero.casillas[casilla[0], casilla[1]] = 2;
-                        tablero.numPiezasNegras++;
-                        nuevaPieza = Instantiate(piezaNegra, posicion, Quaternion.identity);
-                        nuevaPieza.transform.parent = piezaReferencia.transform;
-
-                    }
-                    turno = !turno;
-                }
-                else {
-                    Instantiate(sonidoCasillaOcupada);
+                    putToken(selectedCell.transform.parent.gameObject);
                 }
             }
-        }   
+
+            updatePhase();
+        }
     }
 
-    private int[] obtenerIndiceCasilla(string name)
+    private GameObject getCellOnClick()
     {
-        int cas = int.Parse(name[1].ToString());
-        if (name[0] == 'E')
-            return new int[] { 0, cas};
-        if (name[0] == 'M')
-            return new int[] { 1, cas};
-        return new int[] { 2, cas};
-    }
-
-    public void reiniciarTablero()
-    {
-        foreach (Transform child in piezaReferencia.transform)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
-            GameObject.Destroy(child.gameObject);
+            return hitInfo.collider.gameObject;
+        }
+        return null;
+    }
+
+    private void updatePhase()
+    {
+        if (board.totalTokens == 18)
+        {
+            phase = GamePhase.MOVE;
+        }
+    }
+
+    private void putToken(GameObject selectedCell)
+    {
+        Cell cell = selectedCell.GetComponent<Cell>();
+        if (cell.status == Status.EMPTY)
+        {
+            Vector3 position = selectedCell.transform.position;
+            position = new Vector3(position.x, height, position.z);
+            if (turn == Status.WHITE)
+            {
+                cell.status = Status.WHITE;
+                newToken = Instantiate(whiteToken, position, Quaternion.identity);
+                newToken.transform.parent = referenceToken.transform;
+                Token token = newToken.GetComponent<Token>();
+                token.cell = cell;
+                token.color = Status.WHITE;
+                turn = Status.BLACK;
+            }
+            else if (turn == Status.BLACK)
+            {
+                cell.status = Status.BLACK;
+                newToken = Instantiate(blackToken, position, Quaternion.identity);
+                newToken.transform.parent = referenceToken.transform;
+                Token token = newToken.GetComponent<Token>();
+                token.cell = cell;
+                token.color = Status.BLACK;
+                turn = Status.WHITE;
+            }
+            board.totalTokens++;
+        }
+        else
+        {
+            Instantiate(occupiedCellSound);
+        }
+    }
+
+    public void restartBoard()
+    {
+        foreach (Transform child in referenceToken.transform)
+        {
+            Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 8; j++)
-                tablero.casillas[i, j] = 0;
+        foreach (Cell cell in board.cells)
+        {
+            cell.status = Status.EMPTY;
+        }
 
-        tablero.numPiezasBlancas = tablero.numPiezasNegras = 0;
-        turno = true;
-    }*/
+        board.totalTokens = 0;
+        turn = Status.WHITE;
+    }
 }

@@ -9,7 +9,6 @@ public class Mill : MonoBehaviour
 
     public Status isComplete()
     {
-
         return Status.EMPTY;
     }
 }
