@@ -31,6 +31,8 @@ public class Rulescopia : MonoBehaviour
                 {
                     putToken(selectedCell.transform.parent.gameObject); //hace la llamada de colocar pieza
                 }
+                //seria u flujo con dos estados, un flujo es cuando doy click y el otro cuando aun no le doy click a nada, dos estados, cuandos e da click se verifica que se vaya a hacer un mov y dsp de hacer el mov termina la 
+                //etapa de mov, dentro de la func de mov zetear que el estado no ha acabado el mov
  /*               else if (phase == GamePhase.MOVE)//si esta en la fase de movimiento
                 {
                     Token token = selectedCell.GetComponent<Token>();
@@ -81,6 +83,7 @@ public class Rulescopia : MonoBehaviour
                 newToken = Instantiate(whiteToken, position, Quaternion.identity);
                 newToken.transform.parent = referenceToken.transform;
                 Token token = newToken.GetComponent<Token>(); //se saca la componente del script del objeto instanciado, para que la ficha tenga las variables actualizadas
+                token.rules = this;
                 cell.token = token;
                 token.cell = cell; // se actualiza la casilla en la que se encuentra esa pieza
                 token.color = Status.WHITE; //se actualiza el color
