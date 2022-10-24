@@ -31,7 +31,15 @@ public class Rulescopia : MonoBehaviour
                 {
                     putToken(selectedCell.transform.parent.gameObject); //hace la llamada de colocar pieza
                 }
-                
+/*                else if (phase == GamePhase.MOVE)//si esta en la fase de movimiento
+                {
+                    Token token = selectedCell.GetComponent<Token>();
+                    if (Cell.token != null)
+                    {
+                        moveToken(selectedCell.transform.parent.gameObject);
+                    }
+
+                }*/
             }
 
             updatePhase();
@@ -56,6 +64,10 @@ public class Rulescopia : MonoBehaviour
         }
     }
 
+    private void moveToken(GameObject selectedCell)
+    {
+
+    }
     private void putToken(GameObject selectedCell) //para poner una ficha
     {
         Cell cell = selectedCell.GetComponent<Cell>(); 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class cambiar_color : MonoBehaviour
 {
-    public Color inicial;
-    public Color final;
+    public UnityEngine.Color inicial;
+    public UnityEngine.Color final;
     
     // Start is called before the first frame update
     void Start()
