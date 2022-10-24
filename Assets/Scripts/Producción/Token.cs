@@ -11,7 +11,7 @@ public class Token : MonoBehaviour
     public Cell cell;
     [HideInInspector]
     public Status color;
-    public Rulescopia rules;
+    private Rulescopia rules;
     public UnityEngine.Color defaultcolor;
     public UnityEngine.Color newColor;
     public Renderer render;
@@ -23,14 +23,30 @@ public class Token : MonoBehaviour
 
     private void OnMouseOver()
     {
-        render = GetComponent<Renderer>();
-        render.material.color = newColor;
+        if (rules.phase == GamePhase.MOVE && rules.turn == Status.WHITE)
+        {
+            render = GetComponent<Renderer>();
+            render.material.color = newColor;
+        }
+        else if (rules.phase == GamePhase.MOVE && rules.turn == Status.BLACK)
+        {
+            render = GetComponent<Renderer>();
+            render.material.color = newColor;
+        }
     }
 
     private void OnMouseExit()
     {
-        render = GetComponent<Renderer>();
-        render.material.color = defaultcolor;
+        if (rules.phase == GamePhase.MOVE && rules.turn == Status.WHITE)
+        {
+            render = GetComponent<Renderer>();
+            render.material.color = defaultcolor;
+        }
+        if (rules.phase == GamePhase.MOVE && rules.turn == Status.BLACK)
+        {
+            render = GetComponent<Renderer>();
+            render.material.color = defaultcolor;
+        }
     }
 }
 

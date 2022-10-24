@@ -8,10 +8,10 @@ public class Rulescopia : MonoBehaviour
     public float height;
     public GameObject whiteToken, blackToken, referenceToken;
     public Board board;
-    public GameObject occupiedCellSound; 
-
-    private Status turn;
-    private GamePhase phase;
+    public GameObject occupiedCellSound;
+    [HideInInspector]
+    public Status turn;
+    public GamePhase phase;
     private GameObject selectedCell, newToken;
 
     private void Start() //se ejecuta al inicio de la escena
