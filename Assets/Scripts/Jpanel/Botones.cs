@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Botones : MonoBehaviour
 {
-    // Start is called before the first frame update
+ 
     void Start()
     {
        
@@ -12,28 +12,34 @@ public class Botones : MonoBehaviour
 
         //3. Acciones de cada botón
 
-        //Botón inicio (si existe)
+        //Botón inicio 
         if (botonInicio)
         {
             //Le añado la acción a ejecutar (cambiar a la escena de Inicio)
             botonInicio.GetComponent<Button>().onClick.AddListener(() => gameManager.cambiarEscena("Inicio"));
         }
 
-        //Botón jugar (si existe)
+        //Botón jugar 
         if (botonJuego)
         {
             //Le añado la acción a ejecutar (cambiar a la escena de Juego)
             botonJuego.GetComponent<Button>().onClick.AddListener(() => gameManager.cambiarEscena("Juego"));
         }
 
-        //Botón opciones (si existe)
+        //Botón opciones 
         if (botonOpciones)
         {
             //Le añado la acción a ejecutar (cambiar a la escena de Opciones)
             botonOpciones.GetComponent<Button>().onClick.AddListener(() => gameManager.cambiarEscena("Opciones"));
         }
 
-      
+        if (botonSalir)
+        {
+            //Le añado la acción a ejecutar (salir del juego)
+            //Este botón no funcionará en el Editor de Unity, pero sí al hacer la Build
+            botonSalir.GetComponent<Button>().onClick.AddListener(() => Application.Quit());
         }
+
+    }
     }
 }
