@@ -114,6 +114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cell: {fileID: 0}
   color: 0
+  rules: {fileID: 0}
+  defaultcolor: {r: 0.9528302, g: 0.9294589, b: 0.9294589, a: 0}
+  newColor: {r: 0.7173149, g: 0.9433962, b: 0.6176575, a: 0}
+  render: {fileID: 0}
 --- !u!65 &1693853932622379404
 BoxCollider:
   m_ObjectHideFlags: 0

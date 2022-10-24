@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2012,7 +2012,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 668542108}
-  - component: {fileID: 668542107}
+  - component: {fileID: 668542109}
   m_Layer: 0
   m_Name: Reglas
   m_TagString: Untagged
@@ -2020,24 +2020,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &668542107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668542106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baa33c9b37058fe4ab1640fcec84c884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  height: 0.4
-  whiteToken: {fileID: 3036898333416191175, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
-  blackToken: {fileID: 5171493124177874921, guid: da612848cb7badb40a4b4fd64dfc5c7b, type: 3}
-  referenceToken: {fileID: 1669485141}
-  board: {fileID: 918979467}
-  occupiedCellSound: {fileID: 5736493063917482737, guid: 93d8d50ca3467224d849b8f520d2fe6b, type: 3}
 --- !u!4 &668542108
 Transform:
   m_ObjectHideFlags: 0
@@ -2053,6 +2035,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &668542109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668542106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad88925b58008ab4f925fa1bea0cd668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 0.4
+  whiteToken: {fileID: 3036898333416191175, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
+  blackToken: {fileID: 5171493124177874921, guid: da612848cb7badb40a4b4fd64dfc5c7b, type: 3}
+  referenceToken: {fileID: 1669485141}
+  board: {fileID: 918979467}
+  occupiedCellSound: {fileID: 5736493063917482737, guid: 93d8d50ca3467224d849b8f520d2fe6b, type: 3}
 --- !u!1 &740698076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2928,7 +2928,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 668542107}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Rules, Assembly-CSharp
         m_MethodName: restartBoard
         m_Mode: 1
@@ -3752,7 +3752,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-19678
+  m_Name: pb_Mesh-32288
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4330,7 +4330,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-19680
+  m_Name: pb_Mesh-32332
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
