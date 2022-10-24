@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5c0427bdd006a3b41ad914bd955de9c2, type: 2}
     - target: {fileID: 3036898333416191175, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
       propertyPath: m_Name
-      value: Pieza negra
+      value: Black Token
       objectReference: {fileID: 0}
     - target: {fileID: 3036898333416191179, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
       propertyPath: m_RootOrder
@@ -58,6 +58,18 @@ PrefabInstance:
     - target: {fileID: 3036898333416191179, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627080073565954826, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
+      propertyPath: defaultcolor.b
+      value: 0.0019223877
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627080073565954826, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
+      propertyPath: defaultcolor.g
+      value: 0.0019223877
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627080073565954826, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}
+      propertyPath: defaultcolor.r
+      value: 0.03773582
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 905d22bd043ffe9438629d0338d93ea6, type: 3}

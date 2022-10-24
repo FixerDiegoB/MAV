@@ -11,6 +11,7 @@ public class Token : MonoBehaviour
     public Cell cell;
     [HideInInspector]
     public Status color;
+    public Rules rules;
 
     private void OnMouseDown()
     {
