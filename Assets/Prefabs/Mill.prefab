@@ -110,4 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76cda4d909fb2c478207b26ef36c5e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cells: []
+  cells:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  defaultColor: {r: 0.7058824, g: 0.627451, b: 0.10980392, a: 0}
+  millCreatedColor: {r: 0, g: 1, b: 0, a: 0}
+  render: {fileID: 0}
