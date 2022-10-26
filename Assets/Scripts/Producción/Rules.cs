@@ -26,9 +26,11 @@ public class Rules : MonoBehaviour
             selectedCell = getCellOnClick();
             if (selectedCell != null)
             {
+                selectedCell = selectedCell.transform.parent.gameObject;
                 if (phase == GamePhase.PUT)
                 {
-                    putToken(selectedCell.transform.parent.gameObject);
+                    putToken(selectedCell);
+                    verifyMill(selectedCell);
                 }
             }
 
@@ -89,6 +91,22 @@ public class Rules : MonoBehaviour
         }
     }
 
+    private bool verifyMill(GameObject selectedCell)
+    {
+        Cell cell = selectedCell.GetComponent<Cell>();
+
+        foreach(Mill mill in cell.mills)
+        {
+            Status status = mill.isComplete();
+            if (status != Status.EMPTY)
+            {
+                Debug.Log("Mill created");
+                return true;
+            }
+        }
+
+        return false;
+    }
     public void restartBoard()
     {
         foreach (Transform child in referenceToken.transform)
@@ -99,6 +117,11 @@ public class Rules : MonoBehaviour
         foreach (Cell cell in board.cells)
         {
             cell.status = Status.EMPTY;
+        }
+
+        foreach (Mill mill in board.mills)
+        {
+            mill.isComplete();
         }
 
         board.totalTokens = 0;
