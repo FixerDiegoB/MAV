@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Diego.unity
     guid: e450adfab4beb0a488f21c4716886c97
+  - enabled: 1
+    path: Assets/Scenes/JhoelParte2.unity
+    guid: 04cfde881a7c415408850747c2732019
+  - enabled: 1
+    path: Assets/Scenes/MenuManager.unity
+    guid: 9c66e92b85139804a85e478a45c9e99f
   m_configObjects: {}
