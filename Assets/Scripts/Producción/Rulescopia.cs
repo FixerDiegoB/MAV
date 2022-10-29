@@ -83,7 +83,7 @@ public class Rulescopia : MonoBehaviour
                 newToken = Instantiate(whiteToken, position, Quaternion.identity);
                 newToken.transform.parent = referenceToken.transform;
                 Token token = newToken.GetComponent<Token>(); //se saca la componente del script del objeto instanciado, para que la ficha tenga las variables actualizadas
-                token.rules = this;
+                // token.rules = this;
                 cell.token = token;
                 token.cell = cell; // se actualiza la casilla en la que se encuentra esa pieza
                 token.color = Status.WHITE; //se actualiza el color

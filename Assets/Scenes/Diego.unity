@@ -4319,6 +4319,8 @@ MonoBehaviour:
   referenceToken: {fileID: 102078934}
   board: {fileID: 1795884360}
   occupiedCellSound: {fileID: 5736493063917482737, guid: 93d8d50ca3467224d849b8f520d2fe6b, type: 3}
+  phase: 0
+  turn: 0
 --- !u!4 &1049102844
 Transform:
   m_ObjectHideFlags: 0

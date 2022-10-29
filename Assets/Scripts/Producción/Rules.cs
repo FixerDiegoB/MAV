@@ -7,11 +7,12 @@ public class Rules : MonoBehaviour
     public float height;
     public GameObject whiteToken, blackToken, referenceToken;
     public Board board;
-    public GameObject occupiedCellSound; 
-
-    private Status turn;
-    private GamePhase phase;
-    private GameObject selectedCell, newToken;
+    public GameObject occupiedCellSound;
+    [HideInInspector]
+    public GamePhase phase;
+    [HideInInspector]
+    public Status turn;
+    private GameObject selectedObject, selectedCell, selectedToken, newToken;
 
     private void Start()
     {
@@ -23,26 +24,44 @@ public class Rules : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            selectedCell = getCellOnClick();
-            if (selectedCell != null)
+            selectedObject = getObjectOnClick();
+        
+            if (selectedObject != null)
             {
-                selectedCell = selectedCell.transform.parent.gameObject;
-                if (phase == GamePhase.PUT)
+                if (selectedObject.transform.parent.gameObject.GetComponent<Cell>() != null) // Si se selecciona el collider de una casilla
                 {
-                    putToken(selectedCell);
-                    verifyMill(selectedCell);
+                    selectedCell = selectedObject.transform.parent.gameObject;
+                    if (phase == GamePhase.PUT)
+                    {
+                        putToken(selectedCell);
+                        verifyMill(selectedCell);
+                    }
+                    else if (phase == GamePhase.MOVE)
+                    {
+
+                    }
                 }
+                else // Si se selecciona el collider de una ficha
+                {
+                    selectedToken = selectedObject;
+                    if (phase == GamePhase.PUT)
+                    {
+                        Instantiate(occupiedCellSound);
+                    }
+                }
+                
             }
 
             updatePhase();
         }
     }
 
-    private GameObject getCellOnClick()
+    private GameObject getObjectOnClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
+            Debug.Log(hitInfo.collider.gameObject.name);
             return hitInfo.collider.gameObject;
         }
         return null;
@@ -84,10 +103,6 @@ public class Rules : MonoBehaviour
                 turn = Status.WHITE;
             }
             board.totalTokens++;
-        }
-        else
-        {
-            Instantiate(occupiedCellSound);
         }
     }
 

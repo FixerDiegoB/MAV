@@ -8,7 +8,7 @@ public class Token : MonoBehaviour {
 public Cell cell;
 [HideInInspector]
 public Status color;
-public Rulescopia rules;
+public Rules rules;
 public Color defaultColor;
 public Color newColor;
 [HideInInspector]
