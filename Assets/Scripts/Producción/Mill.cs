@@ -23,11 +23,11 @@ public class Mill : MonoBehaviour
         {
             if (cell.status == Status.EMPTY || status != cell.status)
             {
-                render.material.color = defaultColor;
+// render.material.color = defaultColor;
                 return Status.EMPTY;
             }
         }
-        render.material.color = millCreatedColor;
+  //      render.material.color = millCreatedColor;
         return status;
     }
 }
