@@ -9,6 +9,9 @@ public class ShowTurn : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("J1_isTurn") == 1)
         {
+            //int randomNumber = Random.Range(0, 2);
+            //PlayerPrefs.SetInt("J1_isTurn", randomNumber);
+
             textMeshProUGUI.text = "Turno del jugador 1";
         }
         else
