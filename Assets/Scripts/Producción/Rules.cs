@@ -33,15 +33,20 @@ public class Rules : MonoBehaviour
                 }
                 //seria u flujo con dos estados, un flujo es cuando doy click y el otro cuando aun no le doy click a nada, dos estados, cuandos e da click se verifica que se vaya a hacer un mov y dsp de hacer el mov termina la 
                 //etapa de mov, dentro de la func de mov zetear que el estado no ha acabado el mov
-                /*               else if (phase == GamePhase.MOVE)//si esta en la fase de movimiento
-                               {
-                                   Token token = selectedCell.GetComponent<Token>();
-                                   if (Cell.token != null)
-                                   {
-                                       moveToken(selectedCell.transform.parent.gameObject);
-                                   }
+                else if (phase == GamePhase.MOVE)//si esta en la fase de movimiento
+                {
+                    if(input.GetButtonDown("Fire1")) //si damos click izquierdo
+                    {
+                        selectedCell = getCellOnClick();
+                        if (selectedCell=null) //si la celda es nula
+                        {
+                            moveToken(selectedCell.transform.parent.gameObject); //hace la llamada a mover la pieza
+                        }
 
-                               }*/
+                    }
+                
+                   
+                }
             }
 
             updatePhase();
@@ -68,7 +73,7 @@ public class Rules : MonoBehaviour
 
     private void moveToken(GameObject selectedCell)
     {
-
+        
     }
     private void putToken(GameObject selectedCell) //para poner una ficha
     {
