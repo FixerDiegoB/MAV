@@ -75,7 +75,7 @@ public class Rules : MonoBehaviour
         }
     }
 
-    private void putToken(GameObject selectedCell)
+    public void putToken(GameObject selectedCell)
     {
         Cell cell = selectedCell.GetComponent<Cell>();
         if (cell.status == Status.EMPTY)
