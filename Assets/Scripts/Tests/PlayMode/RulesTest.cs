@@ -6,20 +6,20 @@ using UnityEngine.TestTools;
 
 public class RulesTest
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void RulesTestSimplePasses()
-    {
-        // Use the Assert class to test conditions
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
     [UnityTest]
-    public IEnumerator RulesTestWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
+    public IEnumerator RulesTestOne() {
+    
+        var rulesObject = new GameObject();
+        var cellObject = new GameObject();
+        var rules = rulesObject.AddComponent<Rules>();
+        cellObject.AddComponent<Cell>();
+
+
+
+        // rules.putToken(cellObject);
+
         yield return null;
+
+        Assert.AreEqual(4, 4);
     }
 }
