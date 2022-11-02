@@ -31,8 +31,10 @@ public class Rules : MonoBehaviour
                 {
                     putToken(selectedCell.transform.parent.gameObject); //hace la llamada de colocar pieza
                 }
+                /*
                 //seria u flujo con dos estados, un flujo es cuando doy click y el otro cuando aun no le doy click a nada, dos estados, cuandos e da click se verifica que se vaya a hacer un mov y dsp de hacer el mov termina la 
                 //etapa de mov, dentro de la func de mov zetear que el estado no ha acabado el mov
+  <<<<<<< Updated upstream/
                 /*               else if (phase == GamePhase.MOVE)//si esta en la fase de movimiento
                                {
                                    Token token = selectedCell.GetComponent<Token>();
@@ -40,6 +42,17 @@ public class Rules : MonoBehaviour
                                    {
                                        moveToken(selectedCell.transform.parent.gameObject);
                                    }
+=======
+                else if (phase == GamePhase.MOVE)//si esta en la fase de movimiento
+                {
+                    if(Input.GetButtonDown("Fire1")) //si damos click izquierdo
+                    {
+                        selectedCell = getCellOnClick();
+                        if (selectedCell=null) //si la celda es nula
+                        {
+                            moveToken(selectedCell.transform.parent.gameObject); //hace la llamada a mover la pieza
+                        }
+>>>>>>> Stashed changes
 
                                }*/
             }
