@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Rules : MonoBehaviour
 {
-    private Vector2 input;
     public float height;
     public GameObject whiteToken, blackToken, referenceToken;
     public Board board;
     public GameObject occupiedCellSound;
     [HideInInspector]
     public Status turn;
+    [HideInInspector]
     public GamePhase phase;
-    private GameObject selectedCell, newToken;
+    private GameObject selectedObject, selectedCell, selectedToken, newToken;
 
     private void Start() //se ejecuta al inicio de la escena
     {
@@ -24,28 +24,37 @@ public class Rules : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1")) // get button dar click y fire 1 es click izquierdo
         {
-            selectedCell = getCellOnClick(); //getCellOnClick linea 40, es saber a que le damos click, en unity sale un rayo de la camara que va a un punto el cual es el collider del objeto (celda)
-            if (selectedCell != null) //si la celda no es nula
+            selectedObject = getObjectOnClick(); //getCellOnClick linea 40, es saber a que le damos click, en unity sale un rayo de la camara que va a un punto el cual es el collider del objeto (celda)
+            if (selectedObject != null) //si la celda no es nula
             {
-                if (phase == GamePhase.PUT) //si se esta en la primera fase 
+                if (selectedObject.transform.parent.gameObject.GetComponent<Cell>() != null) // Si se selecciona el collider de una casilla
                 {
-                    putToken(selectedCell.transform.parent.gameObject); //hace la llamada de colocar pieza
-                }
-                //seria u flujo con dos estados, un flujo es cuando doy click y el otro cuando aun no le doy click a nada, dos estados, cuandos e da click se verifica que se vaya a hacer un mov y dsp de hacer el mov termina la 
-                //etapa de mov, dentro de la func de mov zetear que el estado no ha acabado el mov
-                else if (phase == GamePhase.MOVE)//si esta en la fase de movimiento
-                {
-                    if(input.GetButtonDown("Fire1")) //si damos click izquierdo
+                    selectedCell = selectedObject.transform.parent.gameObject;
+                    if (phase == GamePhase.PUT)
                     {
-                        selectedCell = getCellOnClick();
-                        if (selectedCell=null) //si la celda es nula
-                        {
-                            moveToken(selectedCell.transform.parent.gameObject); //hace la llamada a mover la pieza
-                        }
-
+                        putToken(selectedCell);
+                        verifyMill(selectedCell);
                     }
-                
-                   
+                    else if (phase == GamePhase.MOVE)
+                    {
+                        if (Input.GetButtonDown("Fire1")) //si damos click izquierdo
+                        {
+                            selectedCell = getObjectOnClick();
+                            if (selectedCell = null) //si la celda es nula
+                            {
+                                moveToken(selectedCell.transform.parent.gameObject); //hace la llamada a mover la pieza
+                            }
+
+                        }
+                    }
+                }
+                else // Si se selecciona el collider de una ficha
+                {
+                    selectedToken = selectedObject;
+                    if (phase == GamePhase.PUT)
+                    {
+                        Instantiate(occupiedCellSound);
+                    }
                 }
             }
 
@@ -53,11 +62,12 @@ public class Rules : MonoBehaviour
         }
     }
 
-    private GameObject getCellOnClick()
+    private GameObject getObjectOnClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
+            Debug.Log(hitInfo.collider.gameObject.name);
             return hitInfo.collider.gameObject;
         }
         return null;
@@ -113,6 +123,22 @@ public class Rules : MonoBehaviour
         }
     }
 
+    private bool verifyMill(GameObject selectedCell)
+    {
+        Cell cell = selectedCell.GetComponent<Cell>();
+
+        foreach (Mill mill in cell.mills)
+        {
+            Status status = mill.isComplete();
+            if (status != Status.EMPTY)
+            {
+                Debug.Log("Mill created");
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public void restartBoard() //reiniciar el tablero 
     {
