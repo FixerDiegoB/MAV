@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Kritzan.unity
+    guid: 4c7c0634348de5349b07e7eaff44647a
+  - enabled: 1
     path: Assets/Scenes/Diego.unity
     guid: e450adfab4beb0a488f21c4716886c97
   - enabled: 1
