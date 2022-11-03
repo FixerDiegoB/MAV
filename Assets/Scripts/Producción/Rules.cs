@@ -40,8 +40,8 @@ public class Rules : MonoBehaviour
                     if (phase == GamePhase.PUT)
                     {
                         putToken(selectedCell);
-                        canRemoveToken = verifyMill(selectedCell);
-                    }/*
+                        canRemoveToken = verifyMill(selectedCell); //si se ha creado un molino
+                    }
                     else if (phase == GamePhase.MOVE)
                     {
                         if (Input.GetButtonDown("Fire1")) //si damos click izquierdo
@@ -53,12 +53,12 @@ public class Rules : MonoBehaviour
                             }
 
                         }
-                    }*/
+                    }
 
-                    if (canRemoveToken)
+                    if (canRemoveToken) 
                     {
-                        isWaitingForClick = true;
-                        StartCoroutine(removeToken());
+                        isWaitingForClick = true; //espera que se de click
+                        StartCoroutine(removeToken()); //una corutina que remueve la ficha 
                     }
 
                     if (!isWaitingForClick)
@@ -89,15 +89,15 @@ public class Rules : MonoBehaviour
         return null;
     }
 
-    private void updatePhase() //se act la fase cuando se colocan las 18 piezas
+    private void updatePhase() //se actualiza la fase cuando se colocan las 18 piezas
     {
-        if (board.totalTokens == 18)
+        if (board.totalTokens == 18) //si se colocan las 18 fichas
         {
-            phase = GamePhase.MOVE;
+            phase = GamePhase.MOVE; //pasa a la fase de mover fichas
         }
     }
 
-    private void updateTurn()
+    private void updateTurn() //se actualiza el turno
     {
         if (turn == Status.WHITE)
             turn = Status.BLACK;
@@ -146,21 +146,21 @@ public class Rules : MonoBehaviour
 
     }
 
-    private IEnumerator removeToken()
+    private IEnumerator removeToken() //remover ficha
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f); //espera 0.5 seg para recien realizar y evitar que detecte el mismo click
         while (true)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1")) //cuando se da click
             {
-                selectedObject = getObjectOnClick();
-                if (selectedObject != null && selectedObject.layer == layerToken)
+                selectedObject = getObjectOnClick(); //selecciona el objeto
+                if (selectedObject != null && selectedObject.layer == layerToken) //si es diferente de null y la capa pertenece a la capa ficha, o sea si es una ficha (ya que se tienen 2 colliders, celda y ficha)
                 {
-                    Token token = selectedObject.GetComponent<Token>();
-                    Cell cell = token.cell;
-                    if (token.color != turn)
+                    Token token = selectedObject.GetComponent<Token>(); //obtiene el token
+                    Cell cell = token.cell;c //obtiene el cell
+                    if (token.color != turn) //si el color de la ficha seleccionada es diferente a la del turno
                     {
-                        cell.status = Status.EMPTY;
+                        cell.status = Status.EMPTY; 
                         cell.token = null;
                         Destroy(selectedObject);
                         isWaitingForClick = false;
@@ -175,7 +175,7 @@ public class Rules : MonoBehaviour
         
     }
 
-    private bool verifyMill(GameObject selectedCell)
+    private bool verifyMill(GameObject selectedCell) //verifica molino
     {
         Cell cell = selectedCell.GetComponent<Cell>();
         bool millCreated = false;
