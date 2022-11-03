@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class Token : MonoBehaviour { 
 
-public Cell cell;
-[HideInInspector]
-public Status color;
-public Rules rules;
-public Color defaultColor;
-public Color newColor;
-[HideInInspector]
-public Renderer render;
+
+    public Color defaultColor, newColor;
+    
+    public Rules rules;
+
+    [HideInInspector]
+    public bool isPartOfMill;
+    [HideInInspector]
+    public Status color;
+    [HideInInspector]
+    public Cell cell;
+    [HideInInspector]
+    public Renderer render;
 
     private void Start()
     {
