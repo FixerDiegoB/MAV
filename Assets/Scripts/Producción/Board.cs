@@ -12,11 +12,11 @@ public class Board : MonoBehaviour
     [HideInInspector]
     public List<Token> whiteTokens, blackTokens;
     [HideInInspector]
-    public int totalTokens;
+    public int totalTokens, numWhiteTokens, numBlackTokens;
 
     private void Start()
     {
-        totalTokens = 0;
+        totalTokens = numWhiteTokens = numBlackTokens = 0;
     }
 
 }

@@ -22,6 +22,7 @@ public class Rules : MonoBehaviour
     {
         turn = Status.WHITE; //el primer turno, que es el blanco
         phase = GamePhase.PUT; //primera fase que es colocar piezas
+        isWaitingForClick = false;
         layerToken = LayerMask.NameToLayer("Tokens");
         layerCell = LayerMask.NameToLayer("Cells");
     }
@@ -44,15 +45,7 @@ public class Rules : MonoBehaviour
                     }
                     else if (phase == GamePhase.MOVE)
                     {
-                        if (Input.GetButtonDown("Fire1")) //si damos click izquierdo
-                        {
-                            selectedCell = getObjectOnClick();
-                            if (selectedCell = null) //si la celda es nula
-                            {
-                                moveToken(selectedCell.transform.parent.gameObject); //hace la llamada a mover la pieza
-                            }
-
-                        }
+                        Instantiate(occupiedCellSound);
                     }
 
                     if (canRemoveToken)
@@ -70,6 +63,11 @@ public class Rules : MonoBehaviour
                     if (phase == GamePhase.PUT)
                     {
                         Instantiate(occupiedCellSound);
+                    }
+                    else if (phase == GamePhase.MOVE)
+                    {
+                        isWaitingForClick = true;
+                        StartCoroutine(moveToken(selectedToken));
                     }
                 }
             }
@@ -95,6 +93,11 @@ public class Rules : MonoBehaviour
         {
             phase = GamePhase.MOVE; //pasa a la fase de mover fichas
         }
+        
+        if (phase == GamePhase.MOVE)
+        {
+            endGame();
+        }
     }
 
     private void updateTurn() //se actualiza el turno
@@ -118,10 +121,11 @@ public class Rules : MonoBehaviour
                 newToken = Instantiate(whiteToken, position, Quaternion.identity);
                 newToken.transform.parent = referenceToken.transform;
                 Token token = newToken.GetComponent<Token>(); //se saca la componente del script del objeto instanciado, para que la ficha tenga las variables actualizadas
-                // token.rules = this;
+                board.whiteTokens.Add(token);
                 cell.token = token;
                 token.cell = cell; // se actualiza la casilla en la que se encuentra esa pieza
                 token.color = Status.WHITE; //se actualiza el color
+                board.numWhiteTokens++;
             }
             else if (turn == Status.BLACK) //si el turno es del jugador negro
             {
@@ -129,9 +133,11 @@ public class Rules : MonoBehaviour
                 newToken = Instantiate(blackToken, position, Quaternion.identity);
                 newToken.transform.parent = referenceToken.transform;
                 Token token = newToken.GetComponent<Token>(); //se saca la componente del script del objeto instanciado, para que la ficha tenga las variables actualizadas
+                board.blackTokens.Add(token);
                 cell.token = token;
                 token.cell = cell; //se actualiza la casilla en la que se encuentra esa pieza
                 token.color = Status.BLACK; //se actualiza el color
+                board.numBlackTokens++;
             }
             board.totalTokens++; //cuando se llega a 18 que son el total de fichas a colocar, se cambia de fase, a la fase de movimiento
         }
@@ -166,10 +172,25 @@ public class Rules : MonoBehaviour
             yield return null;
         }
 
+        yield break;
     }
 
     private IEnumerator removeToken() //remover ficha
-    {
+    {/*
+        Debug.Log("Empieza quitar pieza para " + turn);
+        List<Token> listTokens = turn == Status.WHITE ? board.blackTokens : board.whiteTokens;
+        List<Token> candidateTokens = new List<Token>();
+        foreach (Token token in listTokens)
+        {
+            if (!token.isPartOfMill)
+                candidateTokens.Add(token);
+        }
+        if (candidateTokens.Count == 0)
+            candidateTokens = listTokens;
+
+        foreach (Token token in candidateTokens)
+            Debug.Log(token.cell.gameObject.name);*/
+
         yield return new WaitForSeconds(0.5f); //espera 0.5 seg para recien realizar y evitar que detecte el mismo click
         while (true)
         {
@@ -184,6 +205,12 @@ public class Rules : MonoBehaviour
                     {
                         cell.status = Status.EMPTY;
                         cell.token = null;
+                        if (turn == Status.WHITE)
+                            board.numBlackTokens--;
+                        else if (turn == Status.BLACK)
+                            board.numWhiteTokens--;
+                        foreach (Mill mill in cell.mills)
+                            mill.isComplete();
                         Destroy(selectedObject);
                         isWaitingForClick = false;
                         updateTurn();
@@ -195,6 +222,14 @@ public class Rules : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    private void endGame()
+    {
+        if (board.numWhiteTokens == 2)
+            Debug.Log("El ganador es el negro.");
+        else if (board.numBlackTokens == 2)
+            Debug.Log("El ganador es el blanco.");
     }
 
     private bool verifyMill(GameObject selectedCell) //verifica molino
