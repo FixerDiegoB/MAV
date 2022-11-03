@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8851661151175559867}
   - component: {fileID: 6182117240503560827}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424881278c93c6446bfa027ef509925d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neighbors: []
+  mills: []
+  status: 0
+  position: {x: 0, y: 0, z: 0}
+  token: {fileID: 0}
 --- !u!1 &3492217101535690915
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +63,7 @@ GameObject:
   - component: {fileID: 3492217101535690927}
   - component: {fileID: 3492217101535690924}
   - component: {fileID: 3492217101535690925}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: E0_Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +160,7 @@ GameObject:
   - component: {fileID: 3492217103162126480}
   - component: {fileID: 3492217103162126481}
   - component: {fileID: 3492217103162126486}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: E0_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

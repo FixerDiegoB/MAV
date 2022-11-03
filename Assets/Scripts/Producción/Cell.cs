@@ -15,7 +15,6 @@ public class Cell : MonoBehaviour
     [HideInInspector]
     public Token token;
 
-
     private void Start()
     {
         status = Status.EMPTY;
