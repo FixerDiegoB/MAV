@@ -25,17 +25,16 @@ public class Mill : MonoBehaviour
             {
                 render.material.color = defaultColor;
                 foreach (Cell cell2 in cells)
-                {
-                    cell2.token.isPartOfMill = false;
-                } 
+                    if (cell2.token != null)
+                        cell2.token.isPartOfMill = false;
                 return Status.EMPTY;
             }
         }
 
         foreach (Cell cell2 in cells)
-        {
-            cell2.token.isPartOfMill = true;
-        }
+            if (cell2.token != null)
+                cell2.token.isPartOfMill = true;
+
         render.material.color = millCreatedColor;
         return status;
     }
