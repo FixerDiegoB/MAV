@@ -55,7 +55,7 @@ public class Rules : MonoBehaviour
                         }
                     }
 
-                    if (canRemoveToken) 
+                    if (canRemoveToken)
                     {
                         isWaitingForClick = true; //espera que se de click
                         StartCoroutine(removeToken()); //una corutina que remueve la ficha 
@@ -141,8 +141,30 @@ public class Rules : MonoBehaviour
         }
     }
 
-    private void moveToken(GameObject selectedCell)
+    private IEnumerator moveToken(GameObject selectedToken)
     {
+        Cell cell2 = selectedCell.GetComponent<Cell>();
+        Token token = selectedToken.GetComponent<Token>();
+        yield return new WaitForSeconds(0.5f);
+        while (true)
+        {
+            if (Input.GetButtonDown("Fire1")) //cuando se da click
+            {
+                selectedObject = getObjectOnClick(); //selecciona el objeto
+                if (selectedObject != null && selectedObject.layer == layerCell) //si es diferente de null y la capa pertenece a la capa cells, o sea si es una celda
+                {
+                    if (token.cell.neighbors.Contains(cell2))
+                    {
+                        if (cell2.status == Status.EMPTY)
+                        {
+                            selectedToken.transform.position = cell2.transform.position;
+                            yield break;
+                        }
+                    }
+                }
+            }
+            yield return null;
+        }
 
     }
 
@@ -157,10 +179,10 @@ public class Rules : MonoBehaviour
                 if (selectedObject != null && selectedObject.layer == layerToken) //si es diferente de null y la capa pertenece a la capa ficha, o sea si es una ficha (ya que se tienen 2 colliders, celda y ficha)
                 {
                     Token token = selectedObject.GetComponent<Token>(); //obtiene el token
-                    Cell cell = token.cell;c //obtiene el cell
+                    Cell cell = token.cell; //obtiene el cell
                     if (token.color != turn) //si el color de la ficha seleccionada es diferente a la del turno
                     {
-                        cell.status = Status.EMPTY; 
+                        cell.status = Status.EMPTY;
                         cell.token = null;
                         Destroy(selectedObject);
                         isWaitingForClick = false;
@@ -172,7 +194,7 @@ public class Rules : MonoBehaviour
 
             yield return null;
         }
-        
+
     }
 
     private bool verifyMill(GameObject selectedCell) //verifica molino
