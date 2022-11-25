@@ -171,25 +171,19 @@ public class Rules : MonoBehaviour
             }
             yield return null;
         }
-
-        yield break;
     }
 
     private IEnumerator removeToken() //remover ficha
-    {/*
-        Debug.Log("Empieza quitar pieza para " + turn);
+    {
         List<Token> listTokens = turn == Status.WHITE ? board.blackTokens : board.whiteTokens;
         List<Token> candidateTokens = new List<Token>();
         foreach (Token token in listTokens)
         {
-            if (!token.isPartOfMill)
+            if (!token.isPartOfMill())
                 candidateTokens.Add(token);
         }
         if (candidateTokens.Count == 0)
             candidateTokens = listTokens;
-
-        foreach (Token token in candidateTokens)
-            Debug.Log(token.cell.gameObject.name);*/
 
         yield return new WaitForSeconds(0.5f); //espera 0.5 seg para recien realizar y evitar que detecte el mismo click
         while (true)
@@ -201,16 +195,22 @@ public class Rules : MonoBehaviour
                 {
                     Token token = selectedObject.GetComponent<Token>(); //obtiene el token
                     Cell cell = token.cell; //obtiene el cell
-                    if (token.color != turn) //si el color de la ficha seleccionada es diferente a la del turno
+                    if (candidateTokens.Contains(token)) //si el color de la ficha seleccionada es diferente a la del turno
                     {
                         cell.status = Status.EMPTY;
                         cell.token = null;
+                        verifyMill(cell.gameObject);
                         if (turn == Status.WHITE)
+                        {
+                            board.blackTokens.Remove(token);
                             board.numBlackTokens--;
+                        }
+
                         else if (turn == Status.BLACK)
+                        {
+                            board.whiteTokens.Remove(token);
                             board.numWhiteTokens--;
-                        foreach (Mill mill in cell.mills)
-                            mill.isComplete();
+                        }
                         Destroy(selectedObject);
                         isWaitingForClick = false;
                         updateTurn();
@@ -221,7 +221,6 @@ public class Rules : MonoBehaviour
 
             yield return null;
         }
-
     }
 
     private void endGame()

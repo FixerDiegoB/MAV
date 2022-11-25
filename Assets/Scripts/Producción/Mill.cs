@@ -7,6 +7,7 @@ public class Mill : MonoBehaviour
     public Cell[] cells;
     public Color defaultColor;
     public Color millCreatedColor;
+    public Status status;
     [HideInInspector]
     public Renderer render;
 
@@ -17,25 +18,20 @@ public class Mill : MonoBehaviour
 
     public Status isComplete()
     {
-        Status status = cells[0].status;
+        Status cell_status = cells[0].status;
 
         foreach (Cell cell in cells)
         {
-            if (cell.status == Status.EMPTY || status != cell.status)
+            if (cell.status == Status.EMPTY || cell_status != cell.status)
             {
                 render.material.color = defaultColor;
-                foreach (Cell cell2 in cells)
-                    if (cell2.token != null)
-                        cell2.token.isPartOfMill = false;
-                return Status.EMPTY;
+                status = Status.EMPTY;
+                return status;
             }
         }
 
-        foreach (Cell cell2 in cells)
-            if (cell2.token != null)
-                cell2.token.isPartOfMill = true;
-
         render.material.color = millCreatedColor;
+        status = cell_status;
         return status;
     }
 }

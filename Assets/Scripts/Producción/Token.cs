@@ -11,8 +11,6 @@ public class Token : MonoBehaviour {
     public Rules rules;
 
     [HideInInspector]
-    public bool isPartOfMill;
-    [HideInInspector]
     public Status color;
     [HideInInspector]
     public Cell cell;
@@ -22,6 +20,16 @@ public class Token : MonoBehaviour {
     private void Start()
     {
         render = GetComponent<Renderer>();
+    }
+
+    public bool isPartOfMill()
+    {
+        foreach (Mill mill in cell.mills)
+        {
+            if (mill.status != Status.EMPTY)
+                return true;
+        }
+        return false;
     }
 
     private void OnMouseOver()
