@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - nblanco
+  - blancoNombre
+  - negroNombre
   layers:
   - Default
   - TransparentFX
