@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4190fcf2c57b3ff4eba2758a42554930
+guid: 502917e38f66a7646b4a7504d5fe7260
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Malaka Script
+  - Winterbless - Personal Use
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
