@@ -42,6 +42,7 @@ public class Rules : MonoBehaviour
                     {
                         putToken(selectedCell);
                         canRemoveToken = verifyMill(selectedCell); //si se ha creado un molino
+                        updateTurn();
                     }
                     else if (phase == GamePhase.MOVE)
                     {
@@ -53,26 +54,30 @@ public class Rules : MonoBehaviour
                         isWaitingForClick = true; //espera que se de click
                         StartCoroutine(removeToken()); //una corutina que remueve la ficha 
                     }
-
-                    if (!isWaitingForClick)
-                        updateTurn();
                 }
                 else if (selectedObject.layer == layerToken) // Si se selecciona el collider de una ficha
                 {
                     selectedToken = selectedObject;
+                    Token token = selectedToken.GetComponent<Token>();
                     if (phase == GamePhase.PUT)
                     {
                         Instantiate(occupiedCellSound);
                     }
                     else if (phase == GamePhase.MOVE)
                     {
-                        isWaitingForClick = true;
-                        StartCoroutine(moveToken(selectedToken));
+                        if (token.color == turn)
+                        {
+                            isWaitingForClick = true;
+                            StartCoroutine(moveToken(selectedToken));
+                        }
+                        else
+                        {
+                            Instantiate(occupiedCellSound);
+                        }
                     }
                 }
+                updatePhase();
             }
-
-            updatePhase();
         }
     }
 
