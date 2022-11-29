@@ -86,7 +86,7 @@ public class Rules : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
-            Debug.Log(hitInfo.collider.gameObject.name);
+            // Debug.Log(hitInfo.collider.gameObject.name);
             return hitInfo.collider.gameObject;
         }
         return null;
@@ -111,6 +111,7 @@ public class Rules : MonoBehaviour
             turn = Status.BLACK;
         else if (turn == Status.BLACK)
             turn = Status.WHITE;
+        Debug.Log("Le toca a " + turn);
     }
 
     private void putToken(GameObject selectedCell) //para poner una ficha
@@ -221,9 +222,16 @@ public class Rules : MonoBehaviour
                         updateTurn();
                         yield break;
                     }
+                    else
+                    {
+                        Instantiate(occupiedCellSound);
+                    }
+                }
+                else
+                {
+                    Instantiate(occupiedCellSound);
                 }
             }
-
             yield return null;
         }
     }
