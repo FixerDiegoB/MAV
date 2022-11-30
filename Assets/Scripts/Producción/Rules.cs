@@ -330,12 +330,31 @@ public class Rules : MonoBehaviour
         return candidateTokens;
     }
 
+    private bool canMoveToken(Status color)
+    {
+        List<Token> listTokens = color == Status.WHITE ? board.whiteTokens : board.blackTokens;
+
+        foreach (Token token in listTokens)
+        {
+            if (getCandidateCells(token.gameObject, true).Count > 0)
+                return true;
+        }
+
+        return false;
+    }
+
     private void endGame()
     {
-        if (board.numWhiteTokens == 2)
+        if (turn == Status.WHITE && (board.numWhiteTokens == 2 || !canMoveToken(Status.WHITE)))
+        {
             Debug.Log("El ganador es el negro.");
-        else if (board.numBlackTokens == 2)
+            result = Status.BLACK;
+        }
+        else if (turn == Status.BLACK && (board.numBlackTokens == 2 || !canMoveToken(Status.BLACK)))
+        {
             Debug.Log("El ganador es el blanco.");
+            result = Status.WHITE;
+        }
     }
 
     private bool verifyMill(GameObject selectedCell) //verifica molino
