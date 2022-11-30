@@ -159,12 +159,7 @@ public class Rules : MonoBehaviour
     {
         Token token = selectedToken.GetComponent<Token>();
         Cell actualCell = token.cell;
-        List<Cell> candidateCells = new List<Cell>();
-        foreach (Cell cell in actualCell.neighbors)
-        {
-            if (cell.status == Status.EMPTY)
-                candidateCells.Add(cell);
-        }
+        List<Cell> candidateCells = getCandidateCells(selectedToken);
 
         if (candidateCells.Count == 0)
         {
@@ -172,12 +167,6 @@ public class Rules : MonoBehaviour
             isWaitingForClick = false;
             yield break;
         }
-        string debugMessage = "";
-        foreach (Cell cell in candidateCells)
-        {
-            debugMessage += cell.gameObject.name + ' ';
-        }
-        Debug.Log("Candidatos: " + debugMessage);
 
         yield return new WaitForSeconds(0.5f);
         while (true)
@@ -295,6 +284,33 @@ public class Rules : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    private List<Cell> getCandidateCells(GameObject selectedToken, bool disableDebug = false)
+    {
+        Token token = selectedToken.GetComponent<Token>();
+        Cell actualCell = token.cell;
+        List<Cell> candidateCells = new List<Cell>();
+        int actualTurnTokens = turn == Status.WHITE ? board.numWhiteTokens : board.numBlackTokens;
+        List<Cell> listCells = actualTurnTokens > 3 ? actualCell.neighbors : board.cells; // Flying pieces
+
+        foreach (Cell cell in listCells)
+        {
+            if (cell.status == Status.EMPTY)
+                candidateCells.Add(cell);
+        }
+
+        if (candidateCells.Count > 0 && !disableDebug)
+        {
+            string debugMessage = "";
+            foreach (Cell cell in candidateCells)
+            {
+                debugMessage += cell.gameObject.name + ' ';
+            }
+            Debug.Log("Candidatos: " + debugMessage);
+        }
+
+        return candidateCells;
     }
 
     private void endGame()
