@@ -10,7 +10,7 @@ public class Rules : MonoBehaviour
     public GameObject occupiedCellSound;
 
     [HideInInspector]
-    public Status turn;
+    public Status turn, result;
     [HideInInspector]
     public GamePhase phase;
 
@@ -22,6 +22,7 @@ public class Rules : MonoBehaviour
     {
         turn = Status.WHITE; //el primer turno, que es el blanco
         phase = GamePhase.PUT; //primera fase que es colocar piezas
+        result = Status.EMPTY;
         isWaitingForClick = false;
         layerToken = LayerMask.NameToLayer("Tokens");
         layerCell = LayerMask.NameToLayer("Cells");
@@ -29,7 +30,7 @@ public class Rules : MonoBehaviour
 
     private void Update() //se ejecuta 1 vez por cada frame, depende de cada computadora
     {
-        if (Input.GetButtonDown("Fire1") && !isWaitingForClick) // get button dar click y fire 1 es click izquierdo
+        if (Input.GetButtonDown("Fire1") && !isWaitingForClick && result == Status.EMPTY) // get button dar click y fire 1 es click izquierdo
         {
             selectedObject = getObjectOnClick(); //getObjectOnClick es saber a que le damos click, en unity sale un rayo de la camara que va a un punto el cual es el collider del objeto (celda)
             if (selectedObject != null) //si el objeto no es nulo
@@ -42,7 +43,8 @@ public class Rules : MonoBehaviour
                     {
                         putToken(selectedCell);
                         canRemoveToken = verifyMill(selectedCell); //si se ha creado un molino
-                        updateTurn();
+                        if (!canRemoveToken)
+                            updateTurn();
                     }
                     else if (phase == GamePhase.MOVE)
                     {
@@ -76,9 +78,9 @@ public class Rules : MonoBehaviour
                         }
                     }
                 }
-                updatePhase();
             }
         }
+        updatePhase();
     }
 
     private GameObject getObjectOnClick()
