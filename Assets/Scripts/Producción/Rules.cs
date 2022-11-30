@@ -155,24 +155,83 @@ public class Rules : MonoBehaviour
 
     private IEnumerator moveToken(GameObject selectedToken)
     {
-        Cell cell2 = selectedCell.GetComponent<Cell>();
         Token token = selectedToken.GetComponent<Token>();
+        Cell actualCell = token.cell;
+        List<Cell> candidateCells = new List<Cell>();
+        foreach (Cell cell in actualCell.neighbors)
+        {
+            if (cell.status == Status.EMPTY)
+                candidateCells.Add(cell);
+        }
+
+        if (candidateCells.Count == 0)
+        {
+            Instantiate(occupiedCellSound);
+            isWaitingForClick = false;
+            yield break;
+        }
+        string debugMessage = "";
+        foreach (Cell cell in candidateCells)
+        {
+            debugMessage += cell.gameObject.name + ' ';
+        }
+        Debug.Log("Candidatos: " + debugMessage);
+
         yield return new WaitForSeconds(0.5f);
         while (true)
         {
             if (Input.GetButtonDown("Fire1")) //cuando se da click
             {
                 selectedObject = getObjectOnClick(); //selecciona el objeto
-                if (selectedObject != null && selectedObject.layer == layerCell) //si es diferente de null y la capa pertenece a la capa cells, o sea si es una celda
+                if (selectedObject != null)
                 {
-                    if (token.cell.neighbors.Contains(cell2))
+                    if (selectedObject.layer == layerToken)
                     {
-                        if (cell2.status == Status.EMPTY)
+                        Token newToken = selectedObject.GetComponent<Token>();
+                        if (newToken.color == turn)
                         {
-                            selectedToken.transform.position = cell2.transform.position;
+                            StartCoroutine(moveToken(selectedObject));
                             yield break;
                         }
+                        else
+                        {
+                            Instantiate(occupiedCellSound);
+                        }
                     }
+                    else if (selectedObject.layer == layerCell)
+                    {
+                        Cell newCell = selectedObject.transform.parent.GetComponent<Cell>();
+                        Debug.Log("Actual cell: " + actualCell.gameObject.name);
+                        Debug.Log("New cell: " + newCell.gameObject.name);
+                        if (candidateCells.Contains(newCell))
+                        {
+                            actualCell.status = Status.EMPTY;
+                            actualCell.token = null;
+                            newCell.status = turn;
+                            newCell.token = token;
+                            token.cell = newCell;
+                            token.gameObject.transform.position = new Vector3(newCell.position.x, height, newCell.position.z);
+                            verifyMill(actualCell.gameObject);
+
+                            if (verifyMill(newCell.gameObject))
+                                StartCoroutine(removeToken());
+                            else
+                            {
+                                isWaitingForClick = false;
+                                updateTurn();
+                            }
+
+                            yield break;
+                        }
+                        else
+                        {
+                            Instantiate(occupiedCellSound);
+                        }
+                    }
+                }
+                else
+                {
+                    Instantiate(occupiedCellSound);
                 }
             }
             yield return null;
