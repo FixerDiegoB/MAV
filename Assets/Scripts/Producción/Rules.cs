@@ -231,15 +231,7 @@ public class Rules : MonoBehaviour
 
     private IEnumerator removeToken() //remover ficha
     {
-        List<Token> listTokens = turn == Status.WHITE ? board.blackTokens : board.whiteTokens;
-        List<Token> candidateTokens = new List<Token>();
-        foreach (Token token in listTokens)
-        {
-            if (!token.isPartOfMill())
-                candidateTokens.Add(token);
-        }
-        if (candidateTokens.Count == 0)
-            candidateTokens = listTokens;
+        List<Token> candidateTokens = getCandidateTokens();
 
         yield return new WaitForSeconds(0.5f); //espera 0.5 seg para recien realizar y evitar que detecte el mismo click
         while (true)
@@ -311,6 +303,31 @@ public class Rules : MonoBehaviour
         }
 
         return candidateCells;
+    }
+
+    private List<Token> getCandidateTokens(bool disableDebug = false)
+    {
+        List<Token> listTokens = turn == Status.WHITE ? board.blackTokens : board.whiteTokens;
+        List<Token> candidateTokens = new List<Token>();
+        foreach (Token token in listTokens)
+        {
+            if (!token.isPartOfMill())
+                candidateTokens.Add(token);
+        }
+        if (candidateTokens.Count == 0)
+            candidateTokens = listTokens;
+
+        if (candidateTokens.Count > 0 && !disableDebug)
+        {
+            string debugMessage = "";
+            foreach (Token token in candidateTokens)
+            {
+                debugMessage += token.cell.gameObject.name + ' ';
+            }
+            Debug.Log("Candidatos: " + debugMessage);
+        }
+
+        return candidateTokens;
     }
 
     private void endGame()
