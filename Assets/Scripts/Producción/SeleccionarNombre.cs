@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class SeleccionarNombre : MonoBehaviour
 {
     public Text TextBlanco;
@@ -40,6 +41,7 @@ public class SeleccionarNombre : MonoBehaviour
 
         
     }
+    //agregar un if 
     public void InciarPartida()
     {
         PlayerPrefs.SetString("blancoNombre",  textb.text);
