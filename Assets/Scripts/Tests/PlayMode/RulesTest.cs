@@ -7,19 +7,20 @@ using UnityEngine.TestTools;
 public class RulesTest
 {
     [UnityTest]
-    public IEnumerator RulesTestOne() {
-    
+    public IEnumerator ColocacionPrimeraPieza() { // AC 4.1
+
         var rulesObject = new GameObject();
-        var cellObject = new GameObject();
-        var rules = rulesObject.AddComponent<Rules>();
-        cellObject.AddComponent<Cell>();
+        var boardObject = new GameObject();
+        rulesObject.AddComponent<Rules>();
+        boardObject.AddComponent<Board>();
+        Rules rules = rulesObject.GetComponent<Rules>();
+        Board board = boardObject.GetComponent<Board>();
 
+        rules.board = board;
 
-
-        // rules.putToken(cellObject);
+        yield return new WaitForSeconds(0.5f);
+        Assert.AreEqual(Status.WHITE, rules.turn);
 
         yield return null;
-
-        Assert.AreEqual(4, 4);
     }
 }
