@@ -2112,6 +2112,7 @@ MonoBehaviour:
   board: {fileID: 918979467}
   occupiedCellSound: {fileID: 5736493063917482737, guid: 93d8d50ca3467224d849b8f520d2fe6b, type: 3}
   turn: 0
+  result: 0
   phase: 0
 --- !u!1 &671898135
 GameObject:
@@ -7019,10 +7020,6 @@ PrefabInstance:
       value: E0
       objectReference: {fileID: 0}
     - target: {fileID: 6182117240503560827, guid: 4a190aa226711ee479e5e9dbb9fcac83, type: 3}
-      propertyPath: mills.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182117240503560827, guid: 4a190aa226711ee479e5e9dbb9fcac83, type: 3}
       propertyPath: mills.Array.data[0]
       value: 
       objectReference: {fileID: 771659961}
@@ -7030,10 +7027,6 @@ PrefabInstance:
       propertyPath: mills.Array.data[1]
       value: 
       objectReference: {fileID: 1982110007}
-    - target: {fileID: 6182117240503560827, guid: 4a190aa226711ee479e5e9dbb9fcac83, type: 3}
-      propertyPath: neighbors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6182117240503560827, guid: 4a190aa226711ee479e5e9dbb9fcac83, type: 3}
       propertyPath: neighbors.Array.data[0]
       value: 

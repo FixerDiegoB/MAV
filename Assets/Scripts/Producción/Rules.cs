@@ -116,7 +116,7 @@ public class Rules : MonoBehaviour
         Debug.Log("Le toca a " + turn);
     }
 
-    private void putToken(GameObject selectedCell) //para poner una ficha
+    public void putToken(GameObject selectedCell) //para poner una ficha
     {
         Cell cell = selectedCell.GetComponent<Cell>();
         if (cell.status == Status.EMPTY)  //si la celda está vacia 
@@ -168,6 +168,10 @@ public class Rules : MonoBehaviour
             isWaitingForClick = false;
             yield break;
         }
+        foreach (Cell cell in candidateCells)
+        {
+            cell.encender();
+        }
 
         yield return new WaitForSeconds(0.5f);
         while (true)
@@ -182,6 +186,10 @@ public class Rules : MonoBehaviour
                         Token newToken = selectedObject.GetComponent<Token>();
                         if (newToken.color == turn)
                         {
+                            foreach (Cell cell in candidateCells)
+                            {
+                                cell.apagar();
+                            }
                             StartCoroutine(moveToken(selectedObject));
                             yield break;
                         }
@@ -204,6 +212,10 @@ public class Rules : MonoBehaviour
                             token.cell = newCell;
                             token.gameObject.transform.position = new Vector3(newCell.position.x, height, newCell.position.z);
                             verifyMill(actualCell.gameObject);
+                            foreach (Cell cell in candidateCells)
+                            {
+                                cell.apagar();
+                            }
 
                             if (verifyMill(newCell.gameObject))
                                 StartCoroutine(removeToken());
@@ -232,15 +244,7 @@ public class Rules : MonoBehaviour
 
     private IEnumerator removeToken() //remover ficha
     {
-        List<Token> listTokens = turn == Status.WHITE ? board.blackTokens : board.whiteTokens;
-        List<Token> candidateTokens = new List<Token>();
-        foreach (Token token in listTokens)
-        {
-            if (!token.isPartOfMill())
-                candidateTokens.Add(token);
-        }
-        if (candidateTokens.Count == 0)
-            candidateTokens = listTokens;
+        List<Token> candidateTokens = getCandidateTokens();
 
         yield return new WaitForSeconds(0.5f); //espera 0.5 seg para recien realizar y evitar que detecte el mismo click
         while (true)
@@ -314,12 +318,56 @@ public class Rules : MonoBehaviour
         return candidateCells;
     }
 
+    private List<Token> getCandidateTokens(bool disableDebug = false)
+    {
+        List<Token> listTokens = turn == Status.WHITE ? board.blackTokens : board.whiteTokens;
+        List<Token> candidateTokens = new List<Token>();
+        foreach (Token token in listTokens)
+        {
+            if (!token.isPartOfMill())
+                candidateTokens.Add(token);
+        }
+        if (candidateTokens.Count == 0)
+            candidateTokens = listTokens;
+
+        if (candidateTokens.Count > 0 && !disableDebug)
+        {
+            string debugMessage = "";
+            foreach (Token token in candidateTokens)
+            {
+                debugMessage += token.cell.gameObject.name + ' ';
+            }
+            Debug.Log("Candidatos: " + debugMessage);
+        }
+
+        return candidateTokens;
+    }
+
+    private bool canMoveToken(Status color)
+    {
+        List<Token> listTokens = color == Status.WHITE ? board.whiteTokens : board.blackTokens;
+
+        foreach (Token token in listTokens)
+        {
+            if (getCandidateCells(token.gameObject, true).Count > 0)
+                return true;
+        }
+
+        return false;
+    }
+
     private void endGame()
     {
-        if (board.numWhiteTokens == 2)
+        if (turn == Status.WHITE && (board.numWhiteTokens == 2 || !canMoveToken(Status.WHITE)))
+        {
             Debug.Log("El ganador es el negro.");
-        else if (board.numBlackTokens == 2)
+            result = Status.BLACK;
+        }
+        else if (turn == Status.BLACK && (board.numBlackTokens == 2 || !canMoveToken(Status.BLACK)))
+        {
             Debug.Log("El ganador es el blanco.");
+            result = Status.WHITE;
+        }
     }
 
     private bool verifyMill(GameObject selectedCell) //verifica molino
