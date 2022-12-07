@@ -116,7 +116,7 @@ public class Rules : MonoBehaviour
         Debug.Log("Le toca a " + turn);
     }
 
-    private void putToken(GameObject selectedCell) //para poner una ficha
+    public void putToken(GameObject selectedCell) //para poner una ficha
     {
         Cell cell = selectedCell.GetComponent<Cell>();
         if (cell.status == Status.EMPTY)  //si la celda está vacia 

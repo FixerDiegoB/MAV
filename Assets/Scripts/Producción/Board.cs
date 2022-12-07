@@ -16,6 +16,8 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+        whiteTokens = new List<Token>();
+        blackTokens = new List<Token>();
         totalTokens = numWhiteTokens = numBlackTokens = 0;
     }
 
