@@ -14,10 +14,27 @@ public class Cell : MonoBehaviour
     public Vector3 position;
     [HideInInspector]
     public Token token;
+    public Color defaultcolor;
+    public Color newcolor;
+    private GameObject hijo;
+    private Renderer render;
 
     private void Start()
     {
-        status = Status.EMPTY;
-        position = transform.position;
+        hijo = transform.GetChild(0).gameObject;
+        render = hijo.GetComponent<Renderer>();
+
+    }
+
+    public void encender()
+    {
+
+        render.material.color = newcolor;
+    }
+
+    public void apagar()
+    {
+
+        render.material.color = defaultcolor;
     }
 }

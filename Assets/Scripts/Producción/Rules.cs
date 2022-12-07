@@ -167,6 +167,10 @@ public class Rules : MonoBehaviour
             isWaitingForClick = false;
             yield break;
         }
+        foreach (Cell cell in candidateCells)
+        {
+            cell.encender();
+        }
 
         yield return new WaitForSeconds(0.5f);
         while (true)
@@ -181,6 +185,10 @@ public class Rules : MonoBehaviour
                         Token newToken = selectedObject.GetComponent<Token>();
                         if (newToken.color == turn)
                         {
+                            foreach (Cell cell in candidateCells)
+                            {
+                                cell.apagar();
+                            }
                             StartCoroutine(moveToken(selectedObject));
                             yield break;
                         }
@@ -203,6 +211,10 @@ public class Rules : MonoBehaviour
                             token.cell = newCell;
                             token.gameObject.transform.position = new Vector3(newCell.position.x, height, newCell.position.z);
                             verifyMill(actualCell.gameObject);
+                            foreach (Cell cell in candidateCells)
+                            {
+                                cell.apagar();
+                            }
 
                             if (verifyMill(newCell.gameObject))
                                 StartCoroutine(removeToken());

@@ -46,11 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424881278c93c6446bfa027ef509925d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbors: []
-  mills: []
+  neighbors:
+  - {fileID: 0}
+  - {fileID: 0}
+  mills:
+  - {fileID: 0}
+  - {fileID: 0}
   status: 0
   position: {x: 0, y: 0, z: 0}
   token: {fileID: 0}
+  defaultcolor: {r: 1, g: 1, b: 1, a: 0}
+  newcolor: {r: 0, g: 1, b: 0.041554213, a: 0}
 --- !u!1 &3492217101535690915
 GameObject:
   m_ObjectHideFlags: 0
