@@ -146,6 +146,7 @@ public class Rules : MonoBehaviour
                 token.cell = cell; //se actualiza la casilla en la que se encuentra esa pieza
                 token.color = Status.BLACK; //se actualiza el color
                 board.numBlackTokens++;
+
             }
             board.totalTokens++; //cuando se llega a 18 que son el total de fichas a colocar, se cambia de fase, a la fase de movimiento
         }
